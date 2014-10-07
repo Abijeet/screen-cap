@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>AppSettings</class>
  <widget class="QDialog" name="AppSettings">
@@ -5,20 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
-    <height>240</height>
+    <width>311</width>
+    <height>81</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Monospace</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
+  <widget class="QDialogButtonBox" name="btnBox">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>200</y>
-     <width>301</width>
-     <height>32</height>
+     <x>70</x>
+     <y>50</y>
+     <width>166</width>
+     <height>22</height>
     </rect>
    </property>
    <property name="orientation">
@@ -28,11 +34,54 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>291</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="hLayout_1">
+    <item>
+     <widget class="QLabel" name="lblImgDimensions">
+      <property name="text">
+       <string>Image Dimensions</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="txtImgHeight">
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="placeholderText">
+       <string>height (px)</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="txtImgWidth">
+      <property name="font">
+       <font>
+        <pointsize>8</pointsize>
+       </font>
+      </property>
+      <property name="placeholderText">
+       <string>width (px)</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnBox</sender>
    <signal>accepted()</signal>
    <receiver>AppSettings</receiver>
    <slot>accept()</slot>
@@ -48,7 +97,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonBox</sender>
+   <sender>btnBox</sender>
    <signal>rejected()</signal>
    <receiver>AppSettings</receiver>
    <slot>reject()</slot>
