@@ -29,18 +29,24 @@ private slots:
     void on_btnStopCapture_clicked();
     void timeToTakeScreenshot();
 
+    void on_btnDestinationBrowser_clicked();
+
 protected:
     void closeEvent(QCloseEvent *event);
 
 private:
+    void changeStatusCtrls(bool isStartCapturing);
+    QString getFullFilePath(QString filename);
+    bool takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat = IMG_FILE_FORMAT);
+    void updateSettings();
+    bool settingsHasError();
+    void folderCreationError();
+
     Ui::MainWindow *ui;
     AppSettings *appSettings;
     ScreenCapSettings *settings;
-    QTimer *timer;
-    void changeStatusCtrls(bool isStartCapturing);
-    QString getFullFilePath(QString filename);
-    bool takeScreenshotAndSave(QString savePath, int windowId);
-    QSize *qSize;
+    QTimer *timer;    
+    QSize *qSize;    
 };
 
 #endif // MAINWINDOW_H

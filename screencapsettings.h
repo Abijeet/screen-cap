@@ -8,7 +8,9 @@ class ScreenCapSettings
 public:
     ScreenCapSettings();
     void SaveMainSettings();
-    void SaveDefaultSettings();
+    void SaveDefaultSettings();    
+    bool ValidateSettings();
+    void LoadDefaultValues();
 
     // Getters
     QString GetFilePath();
@@ -16,6 +18,7 @@ public:
     int GetCapWidth();
     int GetCapTime();
     int GetCapIsOn();
+    bool GetCapIsRandom();
 
     // Setters
     void SetFilePath(QString path);
@@ -23,10 +26,10 @@ public:
     void SetCapWidth(int width);
     void SetCapTime(int time);
     void SetCapIsOn(int isOn);
+    void SetCapIsRandom(bool isRandom);
 
 private:
-    void loadMainSettings();
-    void loadDefaultValues();
+    void loadMainSettings();    
 
     int capHeight;
     int capWidth;
@@ -34,6 +37,7 @@ private:
     QString capFilePath;
     int capTime;
     QString strGroupName;
+    bool isCapRandom;
 };
 
 #endif // SCREENCAPSETTINGS_H

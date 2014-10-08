@@ -12,6 +12,8 @@ const QString FILE_PATH =  "file_path";
 const QString CAP_HEIGHT = "capture_height";
 const QString CAP_WIDTH = "capture_width";
 const QString CAP_IS_ON = "is_capturing";
+const QString CAP_IS_RANDOM = "is_cap_random";
+const QString IMG_FILE_FORMAT = "JPG";
 
 const int DEF_CAP_TIME = 90;
 const QString DEF_FILE_PATH =  "/home/abijeet/pictures/";
@@ -19,4 +21,5 @@ const int DEF_CAP_HEIGHT = 1024;
 const int DEF_CAP_WIDTH = 768;
 const int DEF_CAP_IS_ON = 1;
 const int DEF_CAP_IS_OFF = 0;
+const bool DEF_CAP_IS_RANDOM = false;
 #endif // CONSTANTS_H
