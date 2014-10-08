@@ -22,19 +22,20 @@ MainWindow::MainWindow(QWidget *parent) :
             qApp->exit();
         }
     }
+
     ui->txtCaptureTime->setText(QString::number(this->settings->GetCapTime()));
     ui->txtDestinationPath->setText(this->settings->GetFilePath());
     ui->chkRandomCapture->setChecked(this->settings->GetCapIsRandom());
 
-    this->timer =  new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timeToTakeScreenshot()));
+    this->timer =  new QTimer(this);    
+    this->randomTimer = new QTimer(this);
 
-    if(this->settings->GetCapIsOn() == DEF_CAP_IS_OFF) {
+    if(this->settings->GetCapIsOn() == DEF_CAP_IS_ON) {
         // Is not on
-        emit on_btnStopCapture_clicked();
+        emit on_btnStartCapture_clicked();
     } else {
         // Is on
-        emit on_btnStartCapture_clicked();
+        emit on_btnStopCapture_clicked();
     }
 }
 
@@ -59,9 +60,22 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 void MainWindow::on_btnStartCapture_clicked() {
     this->changeStatusCtrls(true);
     this->updateSettings();
-    this->qSize = new QSize(this->settings->GetCapWidth(),
-                            this->settings->GetCapHeight());
-    timer->start(this->settings->GetCapTime() * 1000);
+
+    this->timer->start(this->settings->GetCapTime() * 1000);
+    if(this->settings->GetCapIsRandom()) {
+        /******************************************************************
+         * 1. Checking if random is set, if so starting the random timer
+         * 2. Attaching the screenshot to the random timer
+         * 3. Attaching the restart of random timer to the main timer
+         ******************************************************************/
+        this->randomTimer->start(Utility::GetRandomBetween(1, this->settings->GetCapTime() - 1) * 1000);
+        connect(this->randomTimer, SIGNAL(timeout()), this, SLOT(timeToTakeScreenshot()));
+        connect(timer, SIGNAL(timeout()), this, SLOT(resetRandomTimer()));
+    } else {
+        // No random, setting screenshot to random timer.
+        connect(timer, SIGNAL(timeout()), this, SLOT(timeToTakeScreenshot()));
+    }
+
 }
 
 void MainWindow::on_btnStopCapture_clicked()
@@ -83,11 +97,13 @@ void MainWindow::changeStatusCtrls(bool isStartCapturing = true) {
         ui->txtCaptureTime->setEnabled(true);
         ui->txtDestinationPath->setEnabled(true);
         this->timer->stop();
-        delete this->qSize;
     }
 }
 
 void MainWindow::timeToTakeScreenshot() {
+    if(this->settings->GetCapIsRandom() && this->randomTimer && this->randomTimer->isActive()) {
+        this->randomTimer->stop();
+    }
     QString fullPath = this->getFullFilePath(Utility::GetDateTimeInString(FILE_DATE_FORMAT));
     if(fullPath.isEmpty()) {
         // TODO : Show error message box regarding
@@ -128,11 +144,11 @@ void MainWindow::updateSettings() {
     this->settings->SetFilePath(this->ui->txtDestinationPath->text());
     this->settings->SetCapIsRandom(this->ui->chkRandomCapture->isChecked());
     if(ui->btnStartCapture->isEnabled()) {
+        // Is off
+        this->settings->SetCapIsOn(DEF_CAP_IS_OFF);
+    } else {
         // Is on
         this->settings->SetCapIsOn(DEF_CAP_IS_ON);
-    } else {
-        // Is not on
-        this->settings->SetCapIsOn(DEF_CAP_IS_OFF);
     }
 }
 
@@ -168,4 +184,10 @@ void MainWindow::folderCreationError() {
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);
     msgBox.exec();
+}
+
+void MainWindow::resetRandomTimer() {
+    if(this->settings->GetCapIsRandom()) {
+        this->randomTimer->start(Utility::GetRandomBetween(1, this->settings->GetCapTime()) * 1000);
+    }
 }

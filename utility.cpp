@@ -9,7 +9,7 @@ bool Utility::CheckAndCreateFolder(QString folder, QString path) {
     }
 }
 
-int Utility::GetRandomBetween(int max, int min) {
+int Utility::GetRandomBetween(int min, int max) {
     return rand() % (max - min + 1) + min;
 }
 

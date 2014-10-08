@@ -28,6 +28,7 @@ private slots:
     void on_btnStartCapture_clicked();
     void on_btnStopCapture_clicked();
     void timeToTakeScreenshot();
+    void resetRandomTimer();
 
     void on_btnDestinationBrowser_clicked();
 
@@ -45,7 +46,8 @@ private:
     Ui::MainWindow *ui;
     AppSettings *appSettings;
     ScreenCapSettings *settings;
-    QTimer *timer;    
+    QTimer *timer;
+    QTimer *randomTimer;
     QSize *qSize;    
 };
 
