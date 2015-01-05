@@ -84,18 +84,17 @@ void MainWindow::on_btnStopCapture_clicked()
 }
 
 void MainWindow::changeStatusCtrls(bool isStartCapturing = true) {
-    if(isStartCapturing) {
-        ui->btnStartCapture->setEnabled(false);
-        ui->btnStopCapture->setEnabled(true);
-        ui->btnSettings->setEnabled(false);
-        ui->txtCaptureTime->setEnabled(false);
-        ui->txtDestinationPath->setEnabled(false);
-    } else {
-        ui->btnStartCapture->setEnabled(true);
-        ui->btnStopCapture->setEnabled(false);
-        ui->btnSettings->setEnabled(true);
-        ui->txtCaptureTime->setEnabled(true);
-        ui->txtDestinationPath->setEnabled(true);
+    ui->btnStartCapture->setEnabled(!isStartCapturing);
+    ui->btnSettings->setEnabled(!isStartCapturing);
+    ui->btnDestinationBrowser->setEnabled(!isStartCapturing);
+    ui->btnSettings->setEnabled(!isStartCapturing);
+    ui->txtCaptureTime->setEnabled(!isStartCapturing);
+    ui->txtDestinationPath->setEnabled(!isStartCapturing);
+    ui->chkRandomCapture->setEnabled(!isStartCapturing);
+
+    // Stop button is opposite.
+    ui->btnStopCapture->setEnabled(isStartCapturing);
+    if(!isStartCapturing) {
         this->timer->stop();
     }
 }
@@ -104,7 +103,8 @@ void MainWindow::timeToTakeScreenshot() {
     if(this->settings->GetCapIsRandom() && this->randomTimer && this->randomTimer->isActive()) {
         this->randomTimer->stop();
     }
-    QString fullPath = this->getFullFilePath(Utility::GetDateTimeInString(FILE_DATE_FORMAT));
+    QString fileName = Utility::GetDateTimeInString(FILE_DATE_FORMAT);
+    QString fullPath = this->getFullFilePath(fileName);
     if(fullPath.isEmpty()) {
         // TODO : Show error message box regarding
         this->folderCreationError();
@@ -113,10 +113,9 @@ void MainWindow::timeToTakeScreenshot() {
     bool isSuccess =
             this->takeScreenshotAndSave(fullPath,
                     QApplication::desktop()->winId());
-    if(isSuccess) {
-
-    } else {
-
+    if(!isSuccess) {
+        // TODO : Write a log file.
+        Utility::WriteLog(fileName, "Error while taking a screenshot.", __LINE__, __FILE__);
     }
 }
 
@@ -135,7 +134,6 @@ QString MainWindow::getFullFilePath(QString filename) {
 bool MainWindow::takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat) {
     QScreen *screen = QGuiApplication::primaryScreen();
     QPixmap originalPixmap = screen->grabWindow(windowId);
-    //QPixmap scaledPixmap = originalPixmap.scaled(*(this->qSize), Qt::KeepAspectRatio,Qt::FastTransformation);
     return originalPixmap.save(savePath + "." + imageFormat.toLower(), imageFormat.toUtf8().constData(), 50);
 }
 
@@ -162,10 +160,14 @@ void MainWindow::on_btnDestinationBrowser_clicked() {
 
 bool MainWindow::settingsHasError() {
     QMessageBox msgBox;
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
+    msgBox.setWindowTitle("Settings Error");
     msgBox.setText("The settings for the application seem to be invalid.");
     msgBox.setInformativeText("Do you want to restore default settings or close the app?");
     msgBox.setStandardButtons(QMessageBox::RestoreDefaults | QMessageBox::Close );
     msgBox.setDefaultButton(QMessageBox::RestoreDefaults);
+    msgBox.setFont(font);
     int ret = msgBox.exec();
     if(ret == QMessageBox::RestoreDefaults) {
         this->settings->LoadDefaultValues();
@@ -178,11 +180,15 @@ bool MainWindow::settingsHasError() {
 
 void MainWindow::folderCreationError() {
     QMessageBox msgBox;
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
+    msgBox.setWindowTitle("Unable to create folder");
     msgBox.setText("We were unable to create a folder in the destination path.");
     msgBox.setInformativeText("Please ensure that we have read/write permissions to that folder. If the folder is over a network,"
-    "ensure that you are connected to it.");
+    " ensure that you are connected to it.");
     msgBox.setStandardButtons(QMessageBox::Ok);
-    msgBox.setDefaultButton(QMessageBox::Ok);
+    msgBox.setDefaultButton(QMessageBox::Ok);    
+    msgBox.setFont(font);
     msgBox.exec();
 }
 

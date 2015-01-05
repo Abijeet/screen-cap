@@ -39,6 +39,10 @@
   <property name="windowTitle">
    <string>ScreenCap</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="ScreenCap.qrc">
+    <normaloff>:/img/img/Desktop.png</normaloff>:/img/img/Desktop.png</iconset>
+  </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
   </property>

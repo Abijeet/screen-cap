@@ -18,3 +18,17 @@ QString Utility::GetDateTimeInString(QString strFormat) {
     return now.toString(strFormat);
 }
 
+
+bool Utility::WriteLog(QString filePath, QString message, int line, QString srcfileName) {
+    QString folderPath =  QDir::cleanPath(QDir::currentPath() + QDir::separator() + "logs");
+    if(CheckAndCreateFolder(QDir::currentPath(), "logs")) {
+        QString fullWritePath = QDir::cleanPath(folderPath + filePath);
+        QFile file(fullWritePath);
+        file.open(QIODevice::Append);
+        QTextStream out(&file);
+        out << "[" + GetDateTimeInString() + "][" + srcfileName + " : " + line + "] " + message;
+        file.close();
+        return true;
+    }
+    return false;
+}

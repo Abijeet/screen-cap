@@ -6,6 +6,7 @@ const QString ORGANIZATION_NAME = "Osmosys";
 
 const QString FOLDER_DATE_FORMAT = "yyyy_MM_dd";
 const QString FILE_DATE_FORMAT = "yyyy_MM_dd_HH_mm_ss";
+const QString FILE_LOG_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 const QString CAP_TIME = "capture_time";
 const QString FILE_PATH =  "file_path";

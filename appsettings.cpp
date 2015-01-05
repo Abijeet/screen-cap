@@ -10,12 +10,12 @@ AppSettings::AppSettings(QWidget *parent) :
 }
 
 void AppSettings::setupUI(ScreenCapSettings *settings) {
-    ui->txtImgHeight->setText(QString::number(settings->GetCapHeight()));
+    ui->txtImgHeight_2->setText(QString::number(settings->GetCapHeight()));
     ui->txtImgWidth->setText(QString::number(settings->GetCapWidth()));
 }
 
 ScreenCapSettings* AppSettings::GetUpdatedSettings(ScreenCapSettings *settings) {
-    settings->SetCapHeight(ui->txtImgHeight->text().toInt());
+    settings->SetCapHeight(ui->txtImgHeight_2->text().toInt());
     settings->SetCapWidth(ui->txtImgWidth->text().toInt());
     return settings;
 }

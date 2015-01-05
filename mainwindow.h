@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QFont>
 #include "constants.h"
 #include "utility.h"
 #include "screencapsettings.h"
@@ -33,7 +34,7 @@ private slots:
     void on_btnDestinationBrowser_clicked();
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent * /*unused*/);
 
 private:
     void changeStatusCtrls(bool isStartCapturing);
