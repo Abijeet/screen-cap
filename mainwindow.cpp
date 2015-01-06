@@ -186,6 +186,7 @@ void MainWindow::folderCreationError() {
     msgBox.setText("We were unable to create a folder in the destination path.");
     msgBox.setInformativeText("Please ensure that we have read/write permissions to that folder. If the folder is over a network,"
     " ensure that you are connected to it.");
+    msgBox.setIcon(QMessageBox::Critical);
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.setDefaultButton(QMessageBox::Ok);    
     msgBox.setFont(font);
