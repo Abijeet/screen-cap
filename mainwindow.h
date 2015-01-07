@@ -3,13 +3,15 @@
 
 #include <QMainWindow>
 #include <QFont>
+#include <QSystemTrayIcon>
+#include <QMenu>
+#include <QCloseEvent>
 #include "constants.h"
 #include "utility.h"
 #include "screencapsettings.h"
 #include "appsettings.h"
 
 namespace Ui {
-    // Forward Declaration
     class QApplication;
     class QDesktopWidget;
     class MainWindow;
@@ -34,7 +36,7 @@ private slots:
     void on_btnDestinationBrowser_clicked();
 
 protected:
-    void closeEvent(QCloseEvent * /*unused*/);
+    void closeEvent(QCloseEvent *event);
 
 private:
     void changeStatusCtrls(bool isStartCapturing);
@@ -43,13 +45,22 @@ private:
     void updateSettings();
     bool settingsHasError();
     void folderCreationError();
+    void createTrayIcons();
+    void createTrayActions();
 
     Ui::MainWindow *ui;
     AppSettings *appSettings;
     ScreenCapSettings *settings;
     QTimer *timer;
     QTimer *randomTimer;
-    QSize *qSize;    
+    QSize *qSize;
+
+    QAction *minimizeAction;
+    QAction *restoreAction;
+    QAction *quitAction;
+
+    QSystemTrayIcon *trayIcon;
+    QMenu *trayIconMenu;
 };
 
 #endif // MAINWINDOW_H

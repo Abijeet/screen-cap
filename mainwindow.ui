@@ -3,7 +3,7 @@
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::NonModal</enum>
   </property>
   <property name="geometry">
    <rect>
@@ -40,7 +40,7 @@
    <string>ScreenCap</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ScreenCap.qrc">
+   <iconset>
     <normaloff>:/img/img/Desktop.png</normaloff>:/img/img/Desktop.png</iconset>
   </property>
   <property name="windowOpacity">

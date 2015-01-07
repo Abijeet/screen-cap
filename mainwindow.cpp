@@ -21,8 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
             this->close();
             qApp->exit();
         }
-    }
-
+    }             
     ui->txtCaptureTime->setText(QString::number(this->settings->GetCapTime()));
     ui->txtDestinationPath->setText(this->settings->GetFilePath());
     ui->chkRandomCapture->setChecked(this->settings->GetCapIsRandom());
@@ -37,6 +36,13 @@ MainWindow::MainWindow(QWidget *parent) :
         // Is on
         emit on_btnStopCapture_clicked();
     }
+    // Initialize the actions
+    createTrayActions();
+
+    // Add the actions to the tray icon menu
+    createTrayIcons();
+    trayIcon->setIcon(QIcon(":/img/img/Document.png"));
+    trayIcon->show();
 }
 
 MainWindow::~MainWindow() {
@@ -55,6 +61,10 @@ void MainWindow::on_btnSettings_clicked() {
 void MainWindow::closeEvent(QCloseEvent *event) {
     this->updateSettings();
     this->settings->SaveMainSettings();
+    if (trayIcon->isVisible()) {
+        hide();
+        event->ignore();
+    }
 }
 
 void MainWindow::on_btnStartCapture_clicked() {
@@ -197,4 +207,28 @@ void MainWindow::resetRandomTimer() {
     if(this->settings->GetCapIsRandom()) {
         this->randomTimer->start(Utility::GetRandomBetween(1, this->settings->GetCapTime()) * 1000);
     }
+}
+
+void MainWindow::createTrayIcons() {
+    trayIconMenu = new QMenu(this);
+    trayIconMenu->addAction(minimizeAction);
+    trayIconMenu->addAction(restoreAction);
+    trayIconMenu->addSeparator();
+    trayIconMenu->addAction(quitAction);
+    trayIconMenu->setEnabled(true);
+
+    trayIcon = new QSystemTrayIcon(this);
+    trayIcon->setContextMenu(trayIconMenu);
+}
+
+void MainWindow::createTrayActions()
+{
+    minimizeAction = new QAction(tr("Mi&nimize"), this);
+    connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
+
+    restoreAction = new QAction(tr("&Restore"), this);
+    connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+
+    quitAction = new QAction(tr("&Quit"), this);
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 }
