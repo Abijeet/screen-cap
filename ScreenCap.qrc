@@ -1,62 +1,45 @@
 <RCC>
     <qresource prefix="/img">
-        <file>img/Add Appointment.png</file>
-        <file>img/Add Green Button.png</file>
         <file>img/Add.png</file>
-        <file>img/Appointment Cool.png</file>
-        <file>img/Appointment Urgent.png</file>
+        <file>img/Add Green Button.png</file>
         <file>img/Backup Green Button.png</file>
-        <file>img/Bandwidth.png</file>
-        <file>img/Cancel Red Button.png</file>
-        <file>img/Clear Green Button.png</file>
-        <file>img/Coherence.png</file>
+        <file>img/Desktop.png</file>
         <file>img/Document.png</file>
-        <file>img/Eject Blue Button.png</file>
         <file>img/Fullscreen.png</file>
         <file>img/Gear.png</file>
         <file>img/Get Document.png</file>
         <file>img/Get Info Blue Button.png</file>
         <file>img/Get Mail.png</file>
-        <file>img/Help Blue Button.png</file>
         <file>img/History.png</file>
         <file>img/Import Audio Document.png</file>
-        <file>img/Internet History.png</file>
         <file>img/Mail.png</file>
-        <file>img/Menu Item.png</file>
         <file>img/Menu.png</file>
+        <file>img/Menu Item.png</file>
         <file>img/Minus Green Button.png</file>
         <file>img/Minus Red Button.png</file>
-        <file>img/Network.png</file>
         <file>img/New Document.png</file>
         <file>img/New Mail.png</file>
-        <file>img/Pause All.png</file>
+        <file>img/Pause.png</file>
         <file>img/Pause Blue Button.png</file>
         <file>img/Pause Green Button.png</file>
-        <file>img/Pause.png</file>
+        <file>img/Play.png</file>
         <file>img/Play All.png</file>
         <file>img/Play Blue Button.png</file>
         <file>img/Play Green Button.png</file>
-        <file>img/Play.png</file>
-        <file>img/Record Button.png</file>
-        <file>img/Record Red Button.png</file>
         <file>img/Remove.png</file>
         <file>img/Run.png</file>
-        <file>img/Send Document.png</file>
         <file>img/Send Mail.png</file>
         <file>img/Spotlight Blue Button.png</file>
         <file>img/Star.png</file>
+        <file>img/Stop.png</file>
         <file>img/Stop All.png</file>
         <file>img/Stop Green Button.png</file>
         <file>img/Stop Red Button.png</file>
-        <file>img/Stop.png</file>
         <file>img/Terminal.png</file>
-        <file>img/Transfer Document.png</file>
-        <file>img/Transfer.png</file>
         <file>img/Trash Empty.png</file>
         <file>img/Trash Full.png</file>
         <file>img/User.png</file>
         <file>img/Users.png</file>
-        <file>img/Web Browser.png</file>
         <file>img/Write Document.png</file>
     </qresource>
 </RCC>

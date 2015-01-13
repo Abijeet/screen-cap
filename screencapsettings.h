@@ -19,6 +19,10 @@ public:
     int GetCapTime();
     int GetCapIsOn();
     bool GetCapIsRandom();
+    bool GetMinimizeToTray();
+    bool GetStartMinimized();
+    bool GetCaptureOnStartup();
+    QList<QString> GetListOfImgFormats();
 
     // Setters
     void SetFilePath(QString path);
@@ -27,9 +31,12 @@ public:
     void SetCapTime(int time);
     void SetCapIsOn(int isOn);
     void SetCapIsRandom(bool isRandom);
+    void SetMinimizeToTray(bool isSet);
+    void SetStartMinimized(bool isSet);
+    void SetCaptureOnStartup(bool isSet);
 
 private:
-    void loadMainSettings();    
+    void loadMainSettings();
 
     int capHeight;
     int capWidth;
@@ -38,6 +45,9 @@ private:
     int capTime;
     QString strGroupName;
     bool isCapRandom;
+    bool minimizeToTray;
+    bool startMinimized;
+    bool captureOnStartup;
 };
 
 #endif // SCREENCAPSETTINGS_H

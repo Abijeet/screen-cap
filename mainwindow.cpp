@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Add the actions to the tray icon menu
     createTrayIcons();
-    trayIcon->setIcon(QIcon(":/img/img/Document.png"));
+    trayIcon->setIcon(QIcon(":/img/img/Desktop.png"));
     trayIcon->show();
 }
 

@@ -10,13 +10,20 @@ AppSettings::AppSettings(QWidget *parent) :
 }
 
 void AppSettings::setupUI(ScreenCapSettings *settings) {
-    ui->txtImgHeight_2->setText(QString::number(settings->GetCapHeight()));
+    ui->txtImgHeight->setText(QString::number(settings->GetCapHeight()));
     ui->txtImgWidth->setText(QString::number(settings->GetCapWidth()));
+    ui->chkMinimizeToTray->setChecked(settings->GetMinimizeToTray());
+    ui->chkStartCapturing->setChecked(settings->GetCaptureOnStartup());
+    ui->chkStartMinimized->setChecked(settings->GetStartMinimized());
+    ui->ddlImgFormat->addItems(settings->GetListOfImgFormats());
 }
 
 ScreenCapSettings* AppSettings::GetUpdatedSettings(ScreenCapSettings *settings) {
-    settings->SetCapHeight(ui->txtImgHeight_2->text().toInt());
+    settings->SetCapHeight(ui->txtImgHeight->text().toInt());
     settings->SetCapWidth(ui->txtImgWidth->text().toInt());
+    settings->SetCaptureOnStartup(ui->chkStartCapturing->isChecked());
+    settings->SetMinimizeToTray(ui->chkMinimizeToTray->isChecked());
+    settings->SetStartMinimized(ui->chkStartMinimized->isChecked());
     return settings;
 }
 

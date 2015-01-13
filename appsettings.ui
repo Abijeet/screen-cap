@@ -90,7 +90,7 @@
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="txtImgHeight_2">
+         <widget class="QLineEdit" name="txtImgHeight">
           <property name="font">
            <font>
             <pointsize>8</pointsize>
@@ -123,7 +123,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="ddlImgFormat">
         <property name="editable">
          <bool>false</bool>
         </property>
@@ -137,7 +137,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_2"/>
+       <widget class="QComboBox" name="ddlQuality"/>
       </item>
      </layout>
     </item>
@@ -157,41 +157,41 @@
    </property>
    <layout class="QFormLayout" name="formLayout_2">
     <item row="0" column="0">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="lblMinimizeToTray">
       <property name="text">
        <string>Minimize to system tray</string>
       </property>
       <property name="buddy">
-       <cstring>checkBox</cstring>
+       <cstring>chkMinimizeToTray</cstring>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="chkMinimizeToTray">
       <property name="text">
        <string/>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="label_3">
+     <widget class="QLabel" name="lblStartMinimized">
       <property name="text">
        <string>Start minimized</string>
       </property>
       <property name="buddy">
-       <cstring>checkBox_2</cstring>
+       <cstring>chkStartMinimized</cstring>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="chkStartMinimized">
       <property name="text">
        <string/>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
-     <widget class="QLabel" name="label_4">
+     <widget class="QLabel" name="lblStartCapturing">
       <property name="minimumSize">
        <size>
         <width>185</width>
@@ -204,7 +204,7 @@
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QCheckBox" name="checkBox_3">
+     <widget class="QCheckBox" name="chkStartCapturing">
       <property name="text">
        <string/>
       </property>
