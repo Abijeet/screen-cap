@@ -15,7 +15,8 @@ void AppSettings::setupUI(ScreenCapSettings *settings) {
     ui->chkMinimizeToTray->setChecked(settings->GetMinimizeToTray());
     ui->chkStartCapturing->setChecked(settings->GetCaptureOnStartup());
     ui->chkStartMinimized->setChecked(settings->GetStartMinimized());
-    ui->ddlImgFormat->addItems(settings->GetListOfImgFormats());
+    this->addItemsToFormatDdl(ui->ddlImgFormat, settings);
+    this->addItemsToQualityDdl(ui->ddlQuality, settings);
 }
 
 ScreenCapSettings* AppSettings::GetUpdatedSettings(ScreenCapSettings *settings) {
@@ -25,6 +26,24 @@ ScreenCapSettings* AppSettings::GetUpdatedSettings(ScreenCapSettings *settings) 
     settings->SetMinimizeToTray(ui->chkMinimizeToTray->isChecked());
     settings->SetStartMinimized(ui->chkStartMinimized->isChecked());
     return settings;
+}
+
+void AppSettings::addItemsToQualityDdl(QComboBox *cmbBox, ScreenCapSettings *settings)
+{
+    QMap<int, QString> qQualities = settings->GetListOfImgQualities();
+    QMap<int, QString>::iterator i;
+    for(i = qQualities.begin(); i != qQualities.end(); ++i) {
+        cmbBox->addItem(i.value(), QVariant(i.key()));
+    }
+}
+
+void AppSettings::addItemsToFormatDdl(QComboBox *cmbBox, ScreenCapSettings *settings)
+{
+    QMap<int, QString> qFormats = settings->GetListOfImgFormats();
+    QMap<int, QString>::iterator i;
+    for(i = qFormats.begin(); i != qFormats.end(); ++i) {
+        cmbBox->addItem(i.value(), QVariant(i.key()));
+    }
 }
 
 AppSettings::~AppSettings()

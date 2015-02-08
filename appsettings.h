@@ -2,6 +2,7 @@
 #define APPSETTINGS_H
 
 #include <QDialog>
+#include <QComboBox>
 #include "screencapsettings.h"
 
 namespace Ui {
@@ -16,6 +17,8 @@ public:
     explicit AppSettings(QWidget *parent);
     void setupUI(ScreenCapSettings *settings);
     ScreenCapSettings* GetUpdatedSettings(ScreenCapSettings *settings);
+    void addItemsToQualityDdl(QComboBox *cmbBox, ScreenCapSettings *settings);
+    void addItemsToFormatDdl(QComboBox *cmbBox, ScreenCapSettings *settings);
     ~AppSettings();
 
 private:

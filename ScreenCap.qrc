@@ -11,7 +11,6 @@
         <file>img/Get Info Blue Button.png</file>
         <file>img/Get Mail.png</file>
         <file>img/History.png</file>
-        <file>img/Import Audio Document.png</file>
         <file>img/Mail.png</file>
         <file>img/Menu.png</file>
         <file>img/Menu Item.png</file>
@@ -23,7 +22,6 @@
         <file>img/Pause Blue Button.png</file>
         <file>img/Pause Green Button.png</file>
         <file>img/Play.png</file>
-        <file>img/Play All.png</file>
         <file>img/Play Blue Button.png</file>
         <file>img/Play Green Button.png</file>
         <file>img/Remove.png</file>
@@ -39,7 +37,6 @@
         <file>img/Trash Empty.png</file>
         <file>img/Trash Full.png</file>
         <file>img/User.png</file>
-        <file>img/Users.png</file>
         <file>img/Write Document.png</file>
     </qresource>
 </RCC>

@@ -22,7 +22,8 @@ public:
     bool GetMinimizeToTray();
     bool GetStartMinimized();
     bool GetCaptureOnStartup();
-    QList<QString> GetListOfImgFormats();
+    QMap<int, QString> GetListOfImgFormats();
+    QMap<int, QString> GetListOfImgQualities();
 
     // Setters
     void SetFilePath(QString path);

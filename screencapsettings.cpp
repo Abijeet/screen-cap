@@ -96,9 +96,21 @@ bool ScreenCapSettings::GetCaptureOnStartup()
     return this->captureOnStartup;
 }
 
-QList<QString> ScreenCapSettings::GetListOfImgFormats()
+QMap<int, QString> ScreenCapSettings::GetListOfImgFormats()
 {
-    return IMG_FORMATS;
+    QMap<int, QString> imgFormats;
+    for(int i = 0; i < IMG_FORMATS.length(); ++i) {
+        imgFormats[IMG_FORMAT_KEYS[i]] = IMG_FORMATS[i];
+    }
+    return imgFormats;
+}
+
+QMap<int, QString> ScreenCapSettings::GetListOfImgQualities() {
+    QMap<int, QString> imgQualities;
+    for(int i = 0; i < IMG_QUALITY.length(); ++i) {
+        imgQualities[IMG_QUALITY[i]] = IMG_QUALITY_NAME[i];
+    }
+    return imgQualities;
 }
 
 // Setters
