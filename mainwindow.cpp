@@ -161,7 +161,7 @@ bool MainWindow::takeScreenshotAndSave(QString savePath, int windowId, QString i
                                        int imgQuality, int imgHeight, int imgWidth) {
     QScreen *screen = QGuiApplication::primaryScreen();
     QPixmap originalPixmap = screen->grabWindow(windowId);
-    originalPixmap.scaled(imgWidth, imgHeight, Qt::KeepAspectRatio,
+    originalPixmap = originalPixmap.scaled(imgWidth, imgHeight, Qt::KeepAspectRatio,
                           Qt::SmoothTransformation);
     return originalPixmap.save(savePath + "." + imageFormat.toLower(), imageFormat.toUtf8(),
                                imgQuality);
@@ -254,9 +254,20 @@ void MainWindow::createTrayActions()
 }
 
 void MainWindow::setCurrentImgHeightAndWidth() {
-    QRect rec = QApplication::desktop()->screenGeometry();
-    this->imgHeight = rec.height();
-    this->imgWidth = rec.width();
+    QList<QScreen*> lstScreens = QApplication::screens();
+    this->imgHeight = 0;
+    this->imgWidth = 0;
+    for(int i = 0; i < lstScreens.size(); ++i) {
+        QSize qSize = lstScreens[i]->size();
+        // Height will not be added
+        if(this->imgHeight < qSize.height()) {
+            this->imgHeight = qSize.height();
+        }
+        this->imgWidth += qSize.width();
+    }
+    int dimensionPercent = this->settings->GetCapDimensions();
+    this->imgWidth = (this->imgWidth * dimensionPercent) / 100;
+    this->imgHeight = (this->imgHeight * dimensionPercent) / 100;
 }
 
 void MainWindow::changeEvent(QEvent *event)
