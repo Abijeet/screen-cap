@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>339</width>
+    <width>255</width>
     <height>290</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>339</width>
+    <width>255</width>
     <height>290</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>339</width>
+    <width>255</width>
     <height>290</height>
    </size>
   </property>
@@ -40,10 +40,16 @@
    <iconset resource="ScreenCap.qrc">
     <normaloff>:/img/img/Desktop.png</normaloff>:/img/img/Desktop.png</iconset>
   </property>
+  <property name="statusTip">
+   <string>Settings for the application</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
   <widget class="QDialogButtonBox" name="btnBox">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>40</x>
      <y>250</y>
      <width>166</width>
      <height>22</height>
@@ -61,7 +67,7 @@
     <rect>
      <x>10</x>
      <y>120</y>
-     <width>321</width>
+     <width>231</width>
      <height>119</height>
     </rect>
    </property>
@@ -90,26 +96,18 @@
       <item row="0" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLineEdit" name="txtImgHeight">
-          <property name="font">
-           <font>
-            <pointsize>8</pointsize>
-           </font>
+         <widget class="QLineEdit" name="txtImageDimension">
+          <property name="toolTip">
+           <string>Please enter a number between 50 to 100</string>
+          </property>
+          <property name="inputMask">
+           <string>000</string>
+          </property>
+          <property name="maxLength">
+           <number>3</number>
           </property>
           <property name="placeholderText">
-           <string>height (px)</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="txtImgWidth">
-          <property name="font">
-           <font>
-            <pointsize>8</pointsize>
-           </font>
-          </property>
-          <property name="placeholderText">
-           <string>width (px)</string>
+           <string>In percentage</string>
           </property>
          </widget>
         </item>
@@ -124,6 +122,9 @@
       </item>
       <item row="1" column="1">
        <widget class="QComboBox" name="ddlImgFormat">
+        <property name="toolTip">
+         <string>PNG format will result in bigger file sizes.</string>
+        </property>
         <property name="editable">
          <bool>false</bool>
         </property>

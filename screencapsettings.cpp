@@ -6,43 +6,60 @@ ScreenCapSettings::ScreenCapSettings()
     this->loadMainSettings();
 }
 
+/**
+ * @brief ScreenCapSettings::loadMainSettings
+ * Loads the application's setting.
+ */
 void ScreenCapSettings::loadMainSettings() {
     QSettings settings(QSettings::UserScope, ORGANIZATION_NAME, APPLICATION_NAME);
     this->capFilePath = settings.value(FILE_PATH, DEF_FILE_PATH).toString();
     this->capTime = settings.value(CAP_TIME, DEF_CAP_TIME).toInt();
-    this->capWidth = settings.value(CAP_WIDTH, DEF_CAP_WIDTH).toInt();
-    this->capHeight = settings.value(CAP_HEIGHT, DEF_CAP_HEIGHT).toInt();
+    this->capDimensions = settings.value(CAP_DIMENSIONS, DEF_CAP_DIMENSIONS).toInt();
     this->capIsOn = settings.value(CAP_IS_ON, DEF_CAP_IS_OFF).toInt();
     this->isCapRandom = settings.value(CAP_IS_RANDOM, DEF_CAP_IS_RANDOM).toBool();
     this->minimizeToTray = settings.value(MINIMIZE_TO_TRAY, DEF_MINIMIZE_TO_TRAY).toBool();
     this->startMinimized = settings.value(START_MINIMIZED, DEF_START_MINIMIZED).toBool();
     this->captureOnStartup = settings.value(CAP_STARTUP, DEF_CAP_STARTUP).toBool();
+    this->imgFormat = settings.value(CAP_IMG_FORMAT, DEF_IMG_FORMAT).toInt();
+    this->imgQuality = settings.value(CAP_IMG_QUALITY, DEF_IMG_QUALITY).toInt();
 }
 
+/**
+ * @brief ScreenCapSettings::SaveMainSettings
+ * Saves the main settings in the registry or a file.
+ */
 void ScreenCapSettings::SaveMainSettings() {
     QSettings settings(QSettings::UserScope, ORGANIZATION_NAME, APPLICATION_NAME);
     settings.setValue(FILE_PATH, this->capFilePath);
     settings.setValue(CAP_TIME, this->capTime);
-    settings.setValue(CAP_HEIGHT, this->capHeight);
-    settings.setValue(CAP_WIDTH, this->capWidth);
+    settings.setValue(CAP_DIMENSIONS, this->capDimensions);
     settings.setValue(CAP_IS_ON, this->capIsOn);
     settings.setValue(CAP_IS_RANDOM, this->isCapRandom);
     settings.setValue(MINIMIZE_TO_TRAY, this->minimizeToTray);
     settings.setValue(START_MINIMIZED, this->startMinimized);
     settings.setValue(CAP_STARTUP, this->captureOnStartup);
+    settings.setValue(CAP_IMG_FORMAT, this->imgFormat);
+    settings.setValue(CAP_IMG_QUALITY, this->imgQuality);
 }
 
+/**
+ * @brief ScreenCapSettings::LoadDefaultValues
+ * Load the default values, this is called incase the application settings
+ * cannot be loaded.
+ */
 void ScreenCapSettings::LoadDefaultValues() {
     this->capFilePath = DEF_FILE_PATH;
-    this->capTime = DEF_CAP_TIME;
-    this->capWidth = DEF_CAP_WIDTH;
-    this->capHeight = DEF_CAP_HEIGHT;
+    this->capTime = DEF_CAP_TIME;    
+    this->capDimensions = DEF_CAP_DIMENSIONS;
     this->capIsOn = DEF_CAP_IS_ON;
     this->isCapRandom = DEF_CAP_IS_RANDOM;
     this->minimizeToTray = DEF_MINIMIZE_TO_TRAY;
     this->startMinimized = DEF_START_MINIMIZED;
     this->captureOnStartup = DEF_CAP_STARTUP;
+    this->imgFormat = DEF_IMG_FORMAT;
+    this->imgQuality = DEF_IMG_QUALITY;
 }
+
 
 void ScreenCapSettings::SaveDefaultSettings() {
     this->loadMainSettings();
@@ -50,7 +67,7 @@ void ScreenCapSettings::SaveDefaultSettings() {
 }
 
 bool ScreenCapSettings::ValidateSettings() {
-    if(this->capTime == 0 || this->capWidth == 0 || this->capHeight == 0) {
+    if(this->capTime == 0) {
         return false;
     }
     return true;
@@ -61,12 +78,8 @@ QString ScreenCapSettings::GetFilePath() {
     return this->capFilePath;
 }
 
-int ScreenCapSettings::GetCapWidth() {
-    return this->capWidth;
-}
-
-int ScreenCapSettings::GetCapHeight() {
-    return this->capHeight;
+int ScreenCapSettings::GetCapDimensions() {
+    return this->capDimensions;
 }
 
 int ScreenCapSettings::GetCapTime() {
@@ -113,17 +126,29 @@ QMap<int, QString> ScreenCapSettings::GetListOfImgQualities() {
     return imgQualities;
 }
 
+int ScreenCapSettings::GetImgQuality()
+{
+    return this->imgQuality;
+}
+
+QString ScreenCapSettings::GetImgFormat()
+{
+    if(this->imgFormat == JPG_FORMAT) {
+        return "JPG";
+    } else if(this->imgFormat == PNG_FORMAT) {
+        return "PNG";
+    } else {
+        return "JPG";
+    }
+}
+
 // Setters
 void ScreenCapSettings::SetFilePath(QString path) {
     this->capFilePath = path;
 }
 
-void ScreenCapSettings::SetCapWidth(int width) {
-    this->capWidth = width;
-}
-
-void ScreenCapSettings::SetCapHeight(int height) {
-    this->capHeight = height;
+void ScreenCapSettings::SetCapDimensions(int dimensions) {
+    this->capDimensions = dimensions;
 }
 
 void ScreenCapSettings::SetCapTime(int time) {
@@ -151,4 +176,19 @@ void ScreenCapSettings::SetStartMinimized(bool isSet)
 void ScreenCapSettings::SetCaptureOnStartup(bool isSet)
 {
     this->captureOnStartup = isSet;
+}
+
+void ScreenCapSettings::SetImgQuality(int quality)
+{
+    if(quality > 100) {
+        quality  = 100;
+    } else if(quality <= 0) {
+        quality = 1;
+    }
+    this->imgQuality = quality;
+}
+
+void ScreenCapSettings::SetImgFormat(int imgFormat)
+{
+    this->imgFormat = imgFormat;
 }

@@ -21,8 +21,13 @@ public:
     void addItemsToFormatDdl(QComboBox *cmbBox, ScreenCapSettings *settings);
     ~AppSettings();
 
+protected:
+    void done(int result);
+
 private:
     Ui::AppSettings *ui;
+    bool checkSettings();
+    void dimensionError();
 };
 
 #endif // APPSETTINGS_H

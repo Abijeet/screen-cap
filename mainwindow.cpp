@@ -41,6 +41,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Add the actions to the tray icon menu
     createTrayIcons();
+    if(this->settings->GetStartMinimized()) {
+        this->setWindowState(Qt::WindowMinimized);
+    }
     trayIcon->setIcon(QIcon(":/img/img/Desktop.png"));
     trayIcon->show();
 }
@@ -49,6 +52,10 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+/**
+ * @brief MainWindow::on_btnSettings_clicked
+ * Fires on the click on the settings button.
+ */
 void MainWindow::on_btnSettings_clicked() {
     AppSettings *appSettings = new AppSettings(this);
     appSettings->setupUI(this->settings);
@@ -64,13 +71,21 @@ void MainWindow::closeEvent(QCloseEvent *event) {
     if (trayIcon->isVisible()) {
         hide();
         event->ignore();
-    }
+    }    
 }
 
+/**
+ * @brief MainWindow::on_btnStartCapture_clicked
+ * Fires when the user clicks on the capture button.
+ * 1. Changes the status of the application.
+ * 2. Calls update settings
+ * 3. Sets the image width and height based on the setting.
+ * 4. Starts the timer and connects the SLOT to MainWindow::timeToTakeScreenshot()
+ */
 void MainWindow::on_btnStartCapture_clicked() {
     this->changeStatusCtrls(true);
     this->updateSettings();
-
+    this->setCurrentImgHeightAndWidth();
     this->timer->start(this->settings->GetCapTime() * 1000);
     if(this->settings->GetCapIsRandom()) {
         /******************************************************************
@@ -122,7 +137,8 @@ void MainWindow::timeToTakeScreenshot() {
     }
     bool isSuccess =
             this->takeScreenshotAndSave(fullPath,
-                    QApplication::desktop()->winId());
+                QApplication::desktop()->winId(), this->settings->GetImgFormat(),
+                    this->settings->GetImgQuality(), this->imgHeight, this->imgWidth);
     if(!isSuccess) {
         // TODO : Write a log file.
         Utility::WriteLog(fileName, "Error while taking a screenshot.", __LINE__, __FILE__);
@@ -141,10 +157,14 @@ QString MainWindow::getFullFilePath(QString filename) {
     return QDir::cleanPath(filePath + QDir::separator() + dateFoldername + QDir::separator() + filename);
 }
 
-bool MainWindow::takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat) {
+bool MainWindow::takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat,
+                                       int imgQuality, int imgHeight, int imgWidth) {
     QScreen *screen = QGuiApplication::primaryScreen();
     QPixmap originalPixmap = screen->grabWindow(windowId);
-    return originalPixmap.save(savePath + "." + imageFormat.toLower(), imageFormat.toUtf8().constData(), 50);
+    originalPixmap.scaled(imgWidth, imgHeight, Qt::KeepAspectRatio,
+                          Qt::SmoothTransformation);
+    return originalPixmap.save(savePath + "." + imageFormat.toLower(), imageFormat.toUtf8(),
+                               imgQuality);
 }
 
 void MainWindow::updateSettings() {
@@ -170,7 +190,7 @@ void MainWindow::on_btnDestinationBrowser_clicked() {
 
 bool MainWindow::settingsHasError() {
     QMessageBox msgBox;
-    QFont font("Monospace");
+    QFont font(DLG_FONT_FAMILY);
     font.setStyleHint(QFont::TypeWriter);
     msgBox.setWindowTitle("Settings Error");
     msgBox.setText("The settings for the application seem to be invalid.");
@@ -190,7 +210,7 @@ bool MainWindow::settingsHasError() {
 
 void MainWindow::folderCreationError() {
     QMessageBox msgBox;
-    QFont font("Monospace");
+    QFont font(DLG_FONT_FAMILY);
     font.setStyleHint(QFont::TypeWriter);
     msgBox.setWindowTitle("Unable to create folder");
     msgBox.setText("We were unable to create a folder in the destination path.");
@@ -231,4 +251,22 @@ void MainWindow::createTrayActions()
 
     quitAction = new QAction(tr("&Quit"), this);
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+}
+
+void MainWindow::setCurrentImgHeightAndWidth() {
+    QRect rec = QApplication::desktop()->screenGeometry();
+    this->imgHeight = rec.height();
+    this->imgWidth = rec.width();
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    QMainWindow::changeEvent(event);
+    if( event->type() == QEvent::WindowStateChange && windowState() == Qt::WindowMinimized
+            && this->isVisible()) {
+        if(this->settings->GetMinimizeToTray()) {
+            hide();
+            trayIcon->setVisible(true);
+        }
+    }
 }

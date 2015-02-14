@@ -37,16 +37,19 @@ private slots:
 
 protected:
     void closeEvent(QCloseEvent *event);
+    void changeEvent(QEvent *event);
 
 private:
     void changeStatusCtrls(bool isStartCapturing);
     QString getFullFilePath(QString filename);
-    bool takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat = IMG_FILE_FORMAT);
+    bool takeScreenshotAndSave(QString savePath, int windowId, QString imageFormat,
+                               int imgQuality, int imgHeight, int imgWidth);
     void updateSettings();
     bool settingsHasError();
     void folderCreationError();
     void createTrayIcons();
     void createTrayActions();
+    void setCurrentImgHeightAndWidth();
 
     Ui::MainWindow *ui;
     AppSettings *appSettings;
@@ -61,6 +64,8 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
+    int imgHeight;
+    int imgWidth;
 };
 
 #endif // MAINWINDOW_H
