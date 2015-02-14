@@ -25,6 +25,7 @@ public:
     QMap<int, QString> GetListOfImgQualities();
     int GetImgQuality();
     QString GetImgFormat();
+    int GetImgFormatInt();
 
     // Setters
     void SetFilePath(QString path);

@@ -142,6 +142,10 @@ QString ScreenCapSettings::GetImgFormat()
     }
 }
 
+int ScreenCapSettings::GetImgFormatInt() {
+    return this->imgFormat;
+}
+
 // Setters
 void ScreenCapSettings::SetFilePath(QString path) {
     this->capFilePath = path;

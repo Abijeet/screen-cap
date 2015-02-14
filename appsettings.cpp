@@ -76,11 +76,10 @@ void AppSettings::addItemsToFormatDdl(QComboBox *cmbBox, ScreenCapSettings *sett
     QMap<int, QString>::iterator i;
     int intIndex = 0;
     int currIndex = -1;
+    int currFormat = settings->GetImgFormatInt();
     for(i = qFormats.begin(); i != qFormats.end(); ++i) {
         cmbBox->addItem(i.value(), QVariant(i.key()));
-        if(i.key() == JPG_FORMAT) {
-            currIndex = intIndex;
-        } else if(i.key() == PNG_FORMAT) {
+        if(currFormat == i.key()) {
             currIndex = intIndex;
         }
         ++intIndex;
