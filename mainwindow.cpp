@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {    
     ui->setupUi(this);
+    this->setMaximumWidth(515);
+
     this->settings = new ScreenCapSettings();
     if(!this->settings->ValidateSettings()) {
         if(!this->settingsHasError()) {
@@ -239,6 +241,8 @@ void MainWindow::createTrayIcons() {
 
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setContextMenu(trayIconMenu);
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 }
 
 void MainWindow::createTrayActions()
@@ -250,7 +254,7 @@ void MainWindow::createTrayActions()
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
     quitAction = new QAction(tr("&Quit"), this);
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));    
 }
 
 void MainWindow::setCurrentImgHeightAndWidth() {
@@ -280,4 +284,26 @@ void MainWindow::changeEvent(QEvent *event)
             trayIcon->setVisible(true);
         }
     }
+}
+
+void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason) {
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+        if(this->isHidden()) {
+            this->show();
+            this->activateWindow();
+            this->raise();
+        } else {
+            this->hide();
+        }
+        break;
+    default:
+        ;
+    }
+}
+
+void MainWindow::on_btnAbout_clicked()
+{
+    QMessageBox::aboutQt(this);
 }

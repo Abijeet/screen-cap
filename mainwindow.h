@@ -32,8 +32,10 @@ private slots:
     void on_btnStopCapture_clicked();
     void timeToTakeScreenshot();
     void resetRandomTimer();
-
     void on_btnDestinationBrowser_clicked();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+
+    void on_btnAbout_clicked();
 
 protected:
     void closeEvent(QCloseEvent *event);
@@ -49,7 +51,7 @@ private:
     void folderCreationError();
     void createTrayIcons();
     void createTrayActions();
-    void setCurrentImgHeightAndWidth();
+    void setCurrentImgHeightAndWidth();    
 
     Ui::MainWindow *ui;
     AppSettings *appSettings;
