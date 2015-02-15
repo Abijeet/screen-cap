@@ -34,7 +34,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Settings (Work In Progress)</string>
+   <string>Settings :: screen-cap</string>
   </property>
   <property name="windowIcon">
    <iconset resource="ScreenCap.qrc">
