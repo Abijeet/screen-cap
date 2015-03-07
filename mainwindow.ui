@@ -59,7 +59,7 @@
      <height>0</height>
     </size>
    </property>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>8</x>
@@ -111,6 +111,12 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <property name="toolTip">
+          <string>How often to take screenshots?</string>
+         </property>
          <property name="inputMethodHints">
           <set>Qt::ImhDigitsOnly</set>
          </property>
@@ -158,6 +164,12 @@
            <family>Monospace</family>
           </font>
          </property>
+         <property name="acceptDrops">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Take screenshots at random...</string>
+         </property>
          <property name="layoutDirection">
           <enum>Qt::RightToLeft</enum>
          </property>
@@ -200,7 +212,11 @@
         </spacer>
        </item>
        <item>
-        <widget class="QLineEdit" name="txtDestinationPath"/>
+        <widget class="QLineEdit" name="txtDestinationPath">
+         <property name="toolTip">
+          <string>Folder to save the screenshots in...</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="btnDestinationBrowser">
@@ -224,6 +240,9 @@
            <width>20</width>
            <height>20</height>
           </size>
+         </property>
+         <property name="toolTip">
+          <string>Browse...</string>
          </property>
          <property name="text">
           <string>...</string>
@@ -293,7 +312,7 @@
        <item>
         <widget class="QPushButton" name="btnSettings">
          <property name="toolTip">
-          <string>More Options...</string>
+          <string>Settings...</string>
          </property>
          <property name="text">
           <string/>
@@ -313,7 +332,7 @@
        <item>
         <widget class="QPushButton" name="btnAbout">
          <property name="toolTip">
-          <string>More Options...</string>
+          <string>Software used by the app..</string>
          </property>
          <property name="text">
           <string/>

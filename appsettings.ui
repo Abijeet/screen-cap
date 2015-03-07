@@ -138,7 +138,11 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="ddlQuality"/>
+       <widget class="QComboBox" name="ddlQuality">
+        <property name="toolTip">
+         <string>Reducing quality will reduce image size too</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -169,6 +173,9 @@
     </item>
     <item row="0" column="1">
      <widget class="QCheckBox" name="chkMinimizeToTray">
+      <property name="toolTip">
+       <string>Minimize to system tray instead of the taskbar...</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -186,6 +193,9 @@
     </item>
     <item row="1" column="1">
      <widget class="QCheckBox" name="chkStartMinimized">
+      <property name="toolTip">
+       <string>Minimize the application on start...</string>
+      </property>
       <property name="text">
        <string/>
       </property>
@@ -206,6 +216,9 @@
     </item>
     <item row="2" column="1">
      <widget class="QCheckBox" name="chkStartCapturing">
+      <property name="toolTip">
+       <string>Start capturing snapshots on application startup.</string>
+      </property>
       <property name="text">
        <string/>
       </property>
