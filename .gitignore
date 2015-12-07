@@ -29,3 +29,4 @@
 
 #Qt
 *.pro
+*.pro.user

@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/Desktop.png</file>
+        <file>img/Document.png</file>
+        <file>img/Fullscreen.png</file>
+        <file>img/Gear.png</file>
+        <file>img/Get Document.png</file>
+        <file>img/Get Info Blue Button.png</file>
+        <file>img/Get Mail.png</file>
+        <file>img/History.png</file>
+        <file>img/Mail.png</file>
+        <file>img/Menu.png</file>
+        <file>img/Menu Item.png</file>
+        <file>img/Minus Green Button.png</file>
+        <file>img/Minus Red Button.png</file>
+        <file>img/New Document.png</file>
+        <file>img/New Mail.png</file>
+        <file>img/Pause.png</file>
+        <file>img/Pause Blue Button.png</file>
+        <file>img/Pause Green Button.png</file>
+        <file>img/Play.png</file>
+        <file>img/Play Blue Button.png</file>
+        <file>img/Play Green Button.png</file>
+        <file>img/Remove.png</file>
+        <file>img/Run.png</file>
+        <file>img/Send Mail.png</file>
+        <file>img/Spotlight Blue Button.png</file>
+        <file>img/Star.png</file>
+        <file>img/Stop.png</file>
+        <file>img/Stop All.png</file>
+        <file>img/Stop Green Button.png</file>
+        <file>img/Stop Red Button.png</file>
+        <file>img/Terminal.png</file>
+        <file>img/Trash Empty.png</file>
+        <file>img/Trash Full.png</file>
+        <file>img/User.png</file>
+        <file>img/Write Document.png</file>
+    </qresource>
+</RCC>

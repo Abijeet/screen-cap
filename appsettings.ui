@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>255</width>
+    <width>275</width>
     <height>290</height>
    </rect>
   </property>
@@ -18,13 +18,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>255</width>
+    <width>275</width>
     <height>290</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>255</width>
+    <width>275</width>
     <height>290</height>
    </size>
   </property>
@@ -37,7 +37,7 @@
    <string>Settings :: screen-cap</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ScreenCap.qrc">
+   <iconset resource="screen-cap.qrc">
     <normaloff>:/img/img/Desktop.png</normaloff>:/img/img/Desktop.png</iconset>
   </property>
   <property name="statusTip">
@@ -49,7 +49,7 @@
   <widget class="QDialogButtonBox" name="btnBox">
    <property name="geometry">
     <rect>
-     <x>40</x>
+     <x>60</x>
      <y>250</y>
      <width>166</width>
      <height>22</height>
@@ -67,7 +67,7 @@
     <rect>
      <x>10</x>
      <y>120</y>
-     <width>231</width>
+     <width>251</width>
      <height>119</height>
     </rect>
    </property>
@@ -81,7 +81,7 @@
     <string>Image Settings</string>
    </property>
    <layout class="QFormLayout" name="formLayout_3">
-    <item row="0" column="0">
+    <item row="0" column="0" colspan="2">
      <layout class="QFormLayout" name="formLayout">
       <property name="fieldGrowthPolicy">
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -153,7 +153,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>231</width>
+     <width>251</width>
      <height>94</height>
     </rect>
    </property>
@@ -171,16 +171,6 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QCheckBox" name="chkMinimizeToTray">
-      <property name="toolTip">
-       <string>Minimize to system tray instead of the taskbar...</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QLabel" name="lblStartMinimized">
       <property name="text">
@@ -193,6 +183,12 @@
     </item>
     <item row="1" column="1">
      <widget class="QCheckBox" name="chkStartMinimized">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="toolTip">
        <string>Minimize the application on start...</string>
       </property>
@@ -214,8 +210,30 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QCheckBox" name="chkMinimizeToTray">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string>Minimize to system tray instead of the taskbar...</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
     <item row="2" column="1">
      <widget class="QCheckBox" name="chkStartCapturing">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="toolTip">
        <string>Start capturing snapshots on application startup.</string>
       </property>
@@ -228,7 +246,7 @@
   </widget>
  </widget>
  <resources>
-  <include location="ScreenCap.qrc"/>
+  <include location="screen-cap.qrc"/>
  </resources>
  <connections>
   <connection>
