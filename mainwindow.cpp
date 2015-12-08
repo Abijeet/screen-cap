@@ -85,6 +85,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
  * 4. Starts the timer and connects the SLOT to MainWindow::timeToTakeScreenshot()
  */
 void MainWindow::on_btnStartCapture_clicked() {
+    currAppState = CAPTURING;
+
     this->changeStatusCtrls(true);
     this->updateSettings();
     this->setCurrentImgHeightAndWidth();
@@ -107,6 +109,8 @@ void MainWindow::on_btnStartCapture_clicked() {
 
 void MainWindow::on_btnStopCapture_clicked()
 {
+    currAppState = STOPPED;
+    timeToTakeScreenshot();
     this->changeStatusCtrls(false);
 }
 
@@ -131,9 +135,15 @@ void MainWindow::timeToTakeScreenshot() {
         this->randomTimer->stop();
     }
     QString fileName = Utility::GetDateTimeInString(FILE_DATE_FORMAT);
+    if(currAppState == STOPPED) {
+        fileName = "STOPPING_" + fileName;
+    } else if(currAppState == QUITTING) {
+        fileName = "QUITTING_" + fileName;
+    }
+
     QString fullPath = this->getFullFilePath(fileName);
-    if(fullPath.isEmpty()) {
-        // TODO : Show error message box regarding
+    if(fullPath.isEmpty() && currAppState == CAPTURING) {
+        // Don't show error on quit or on stopping.
         this->folderCreationError();
         return;
     }
@@ -142,7 +152,6 @@ void MainWindow::timeToTakeScreenshot() {
                 QApplication::desktop()->winId(), this->settings->GetImgFormat(),
                     this->settings->GetImgQuality(), this->imgHeight, this->imgWidth);
     if(!isSuccess) {
-        // TODO : Write a log file.
         Utility::WriteLog(fileName, "Error while taking a screenshot.", __LINE__, __FILE__);
     }
 }
@@ -254,7 +263,7 @@ void MainWindow::createTrayActions()
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
     quitAction = new QAction(tr("&Quit"), this);
-    connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));    
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(on_applicationQuit()));
 }
 
 void MainWindow::setCurrentImgHeightAndWidth() {
@@ -274,8 +283,7 @@ void MainWindow::setCurrentImgHeightAndWidth() {
     this->imgHeight = (this->imgHeight * dimensionPercent) / 100;
 }
 
-void MainWindow::changeEvent(QEvent *event)
-{
+void MainWindow::changeEvent(QEvent *event) {
     QMainWindow::changeEvent(event);
     if( event->type() == QEvent::WindowStateChange && windowState() == Qt::WindowMinimized
             && this->isVisible()) {
@@ -303,7 +311,22 @@ void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 
-void MainWindow::on_btnAbout_clicked()
-{
+void MainWindow::on_btnAbout_clicked() {
     QMessageBox::aboutQt(this);
+}
+
+void MainWindow::on_applicationQuit() {
+    // Show the dialog box.
+    QMessageBox::StandardButton reply;    
+    reply = QMessageBox::question(this, "Quitting...", "Are you sure you want to quit?",
+                                  QMessageBox::Yes|QMessageBox::No);
+    if(reply == QMessageBox::Yes) {
+        currAppState = QUITTING;
+        if(!ui->btnStartCapture->isEnabled()) {
+            // If it is running.
+            timeToTakeScreenshot();
+        }
+
+        qApp->quit();
+    }
 }

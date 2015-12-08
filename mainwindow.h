@@ -26,17 +26,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-private slots:
-    void on_btnSettings_clicked();
-    void on_btnStartCapture_clicked();
-    void on_btnStopCapture_clicked();
-    void timeToTakeScreenshot();
-    void resetRandomTimer();
-    void on_btnDestinationBrowser_clicked();
-    void iconActivated(QSystemTrayIcon::ActivationReason reason);
-
-    void on_btnAbout_clicked();
-
 protected:
     void closeEvent(QCloseEvent *event);
     void changeEvent(QEvent *event);
@@ -68,6 +57,19 @@ private:
     QMenu *trayIconMenu;
     int imgHeight;
     int imgWidth;
+    enum appState { CAPTURING, STOPPED, QUITTING };
+    int currAppState;
+
+private slots:
+    void on_btnSettings_clicked();
+    void on_btnStartCapture_clicked();
+    void on_btnStopCapture_clicked();
+    void timeToTakeScreenshot();
+    void resetRandomTimer();
+    void on_btnDestinationBrowser_clicked();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
+    void on_applicationQuit();
+    void on_btnAbout_clicked();
 };
 
 #endif // MAINWINDOW_H
